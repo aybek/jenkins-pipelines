@@ -61,7 +61,7 @@ void run_package_tests(String GIT_BRANCH, String TESTS, String INSTALL_REPO)
     git poll: false, branch: GIT_BRANCH, url: 'https://github.com/Percona-QA/package-testing'
     sh '''
         export install_repo=\${INSTALL_REPO}
-        git clone https://github.com/Percona-QA/ppg-testing
+        git clone https://github.com/Percona-QA/ppg-testing --branch PMM-7-ol-8-fix --single-branch
         ansible-playbook \
         --connection=local \
         --inventory 127.0.0.1, \
