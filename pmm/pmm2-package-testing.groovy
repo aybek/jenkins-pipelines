@@ -116,7 +116,7 @@ pipeline {
     stages {
         stage('Setup Server Instance') {
             steps {
-                runStaging(DOCKER_VERSION, '--addclient=ps,1')
+                runStaging(DOCKER_VERSION, '')
             }
         }
         stage('Execute Package Tests') {
