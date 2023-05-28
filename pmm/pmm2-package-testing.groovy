@@ -25,6 +25,15 @@ void destroyStaging(IP) {
     ]
 }
 
+void install_ansible_rhel_7()
+{
+    sh '''
+        sudo yum install -y epel-release
+        sudo yum -y update
+        sudo yum install -y ansible git wget
+    '''
+}
+
 void setup_rhel_package_tests()
 {
     sh '''
@@ -126,7 +135,7 @@ pipeline {
                         label 'min-centos-7-x64'
                     }
                     steps{
-                        setup_rhel_package_tests()
+                        install_ansible_rhel_7()
                         run_package_tests(GIT_BRANCH, TESTS, INSTALL_REPO)
                     }
                     post {
