@@ -1,4 +1,4 @@
-library changelog: false, identifier: 'lib@master', retriever: modernSCM([
+library changelog: false, identifier: 'lib@PMM-12614-get-rc-version', retriever: modernSCM([
     $class: 'GitSCMSource',
     remote: 'https://github.com/Percona-Lab/jenkins-pipelines.git'
 ]) _
@@ -15,7 +15,6 @@ void runAMIUpgradeJob(String PMM_UI_TESTS_BRANCH, String PMM_VERSION, String PMM
 }
 
 def getVersion() {
-//    return '2.40.1'
     def resp = httpRequest "https://registry.hub.docker.com/v2/repositories/perconalab/pmm-client/tags?page_size=25&name=rc"
     return new groovy.json.JsonSlurper().parseText(resp.content)
             .results
@@ -35,7 +34,7 @@ def parallelStagesMatrix = versions.collectEntries {String it ->
         pmmServerLatestVersion = pmmVersion()
     } else {
         enableTestingRepo = 'yes'
-        pmmServerLatestVersion = getVersion()
+        pmmServerLatestVersion = pmmVersion('rc')
     }
     ["${it} -> ${pmmServerLatestVersion}" : generateStage(it, pmmServerLatestVersion, enableTestingRepo)]
 }
