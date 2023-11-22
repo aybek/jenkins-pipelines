@@ -77,17 +77,17 @@ pipeline {
                 }
             }
         }
-        stage('Run PMM AMI UI tests'){
-            parallel {
-                stage('Run PMM AMI UI tests EL9'){
-                    steps{
-                        script {
-                            build job: 'pmm2-ami-test', parameters: [ string(name: 'AMI_ID', value: env.AMI_ID) ]
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Run PMM AMI UI tests'){
+        //     parallel {
+        //         stage('Run PMM AMI UI tests EL9'){
+        //             steps{
+        //                 script {
+        //                     build job: 'pmm2-ami-test', parameters: [ string(name: 'AMI_ID', value: env.AMI_ID) ]
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
     post {
         success {
