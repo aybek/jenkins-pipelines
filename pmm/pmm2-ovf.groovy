@@ -134,7 +134,7 @@ pipeline {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pmm-staging-slave', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                             dir('build') {
                                 sh '''
-                                    make pmm2-ovf
+                                    make pmm2-ovf-el9-dev-latest
                                 '''
                             }
                         }
