@@ -229,32 +229,32 @@ pipeline {
         //                 }
         //             }
         //         }
-        //         stage('Upload Dev-Latest Image EL9') {
-        //             steps {
-        //                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pmm-staging-slave', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-        //                     sh '''
-        //                         FILE=$(ls */*/PMM2-Server-EL9*.ova)
-        //                         NAME=$(basename ${FILE})
-        //                         aws s3 cp \
-        //                             --only-show-errors \
-        //                             --acl public-read \
-        //                             ${FILE} \
-        //                             s3://percona-vm/${NAME}
+                stage('Upload Dev-Latest Image EL9') {
+                    steps {
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'pmm-staging-slave', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                            sh '''
+                                FILE=$(ls */*/PMM2-Server-EL9*.ova)
+                                NAME=$(basename ${FILE})
+                                aws s3 cp \
+                                    --only-show-errors \
+                                    --acl public-read \
+                                    ${FILE} \
+                                    s3://percona-vm/${NAME}
 
-        //                         # This will redirect to the image above
-        //                         echo /${NAME} > PMM2-Server-dev-latest.ova
-        //                         aws s3 cp \
-        //                             --only-show-errors \
-        //                             --website-redirect /${NAME} \
-        //                             PMM2-Server-dev-latest.ova \
-        //                             s3://percona-vm/PMM2-Server-dev-latest.ova
-        //                     '''
-        //                 }
-        //                 script {
-        //                     env.PMM2_SERVER_OVA_S3 = "http://percona-vm.s3-website-us-east-1.amazonaws.com/PMM2-Server-dev-latest.ova"
-        //                 }
-        //             }
-        //         }
+                                # This will redirect to the image above
+                                echo /${NAME} > PMM2-Server-dev-latest.ova
+                                aws s3 cp \
+                                    --only-show-errors \
+                                    --website-redirect /${NAME} \
+                                    PMM2-Server-dev-latest.ova \
+                                    s3://percona-vm/PMM2-Server-dev-latest.ova
+                            '''
+                        }
+                        script {
+                            env.PMM2_SERVER_OVA_S3 = "http://percona-vm.s3-website-us-east-1.amazonaws.com/PMM2-Server-dev-latest.ova"
+                        }
+                    }
+                }
         //     }
         // }
     }
