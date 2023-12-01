@@ -1,6 +1,8 @@
 def call() {
         sh """
-            sudo dnf module install python39
+            sudo yum repolist
+            python3 --version
+            sudo yum module install python39
             sudo yum install -y gcc python39-pip python39-devel libselinux-python3
             sudo yum remove ansible -y
             python3 --version
