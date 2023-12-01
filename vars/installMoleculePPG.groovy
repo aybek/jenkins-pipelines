@@ -1,8 +1,11 @@
 def call() {
         sh """
-            sudo yum install -y python39 gcc python3-pip python3-devel libselinux-python3
+            sudo dnf module install python39
+            sudo yum install -y gcc python39-pip python39-devel libselinux-python3
             sudo yum remove ansible -y
-            python3 -m venv virtenv
+            python3 --version
+            python3.9 --version
+            python3.9 -m venv virtenv
             . virtenv/bin/activate
             python3 --version
             python3 -m pip install --upgrade pip
