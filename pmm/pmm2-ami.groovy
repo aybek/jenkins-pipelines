@@ -68,7 +68,7 @@ pipeline {
                 stage('Build Image Dev-Latest EL9') {
                     steps {
                         dir("build") {
-                            sh 'make pmm2-ami-el9-docker'
+                            sh 'make pmm2-ami-el9-podman'
                         }
                         script {
                             env.AMI_ID = sh(script: "jq -r '.builds[-1].artifact_id' build/manifest.json | cut -d ':' -f2", returnStdout: true)
